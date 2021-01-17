@@ -35,20 +35,17 @@ fun quickSort(values: IntArray): IntArray {
 }
 
 fun quickSort(values: IntArray, left: Int, right: Int): IntArray {
-
     if (values.size < 2)
         return values
-
     if (left >= right)
         return values
-
+    val pivot = values[left]
     //左边为中轴，从右边开始读数
     var leftIndex = left
     var rightIndex = right
-
     while (true) {
         //从右边寻找小于pivot的
-        while (leftIndex != rightIndex && values[rightIndex] > values[left])
+        while (leftIndex != rightIndex && values[rightIndex] > pivot)
             rightIndex--
         if (leftIndex == rightIndex)
             break
@@ -56,7 +53,7 @@ fun quickSort(values: IntArray, left: Int, right: Int): IntArray {
         values[leftIndex] = values[rightIndex]
         leftIndex++
         //从左边寻找大于pivot的放在右边
-        while (leftIndex != rightIndex && values[leftIndex] < values[left])
+        while (leftIndex != rightIndex && values[leftIndex] < pivot)
             leftIndex++
         if (leftIndex == rightIndex)
             break
@@ -65,7 +62,7 @@ fun quickSort(values: IntArray, left: Int, right: Int): IntArray {
         rightIndex--
     }
     //leftIndex与rightIndex重叠的下标为中轴的位置
-    values[leftIndex] = values[left]
+    values[leftIndex] = pivot
     //递归再次排序中轴左右两边
     quickSort(values, left, leftIndex - 1)
     quickSort(values, rightIndex + 1, right)
